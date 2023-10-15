@@ -32,13 +32,18 @@ const post = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
+  favorite: Joi.boolean(),
 });
 
-const put = Joi.object().or("name", "email", "phone").required().keys({
-  name: Joi.string(),
-  email: Joi.string(),
-  phone: Joi.string(),
-});
+const put = Joi.object()
+  .or("name", "email", "phone", "favorite")
+  .required()
+  .keys({
+    name: Joi.string(),
+    email: Joi.string(),
+    phone: Joi.string(),
+    favorite: Joi.boolean(),
+  });
 
 const patchFavorite = Joi.object({
   favorite: Joi.boolean().required(),
