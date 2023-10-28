@@ -1,6 +1,6 @@
 const express = require("express");
 const { authCtrl } = require("../../conrollers");
-const { validateBody, authenticate } = require("../../middlewares");
+const { validateBody, authenticate, upload } = require("../../middlewares");
 const {
   authSchemas: { register, login, patchSubscription },
 } = require("../../models");
@@ -20,6 +20,13 @@ router.patch(
   authenticate,
   validateBody(patchSubscription),
   authCtrl.updateSubscriptionUser
+);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  authCtrl.updateAvatarUser
 );
 
 module.exports = router;
