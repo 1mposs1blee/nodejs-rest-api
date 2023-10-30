@@ -13,6 +13,8 @@ describe("userAuth test", () => {
       .connect(DB_TEST_HOST)
       .then(() => console.log("DB has been connected"))
       .catch((err) => console.log(err));
+
+    await User.deleteMany({});
   }, 10000);
 
   it("should registrate new user", async () => {
@@ -62,10 +64,8 @@ describe("userAuth test", () => {
   });
 
   afterAll(async () => {
-    await User.deleteOne({ email: testUser.email });
-
-    await mongoose.connection
-      .close()
+    await mongoose
+      .disconnect()
       .then(() => console.log("DB has been disconnected"))
       .catch((err) => console.log(err));
   });
