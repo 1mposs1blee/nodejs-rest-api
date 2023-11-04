@@ -2,12 +2,16 @@ const express = require("express");
 const { authCtrl } = require("../../conrollers");
 const { validateBody, authenticate, upload } = require("../../middlewares");
 const {
-  authSchemas: { register, login, patchSubscription },
+  authSchemas: { register, login, patchSubscription, emailSchema },
 } = require("../../models");
 
 const router = express.Router();
 
 router.post("/register", validateBody(register), authCtrl.register);
+
+router.get("/verify/:verificationToken", authCtrl.verifyEmail);
+
+router.post("/verify", validateBody(emailSchema), authCtrl.resendVerifyEmail);
 
 router.post("/login", validateBody(login), authCtrl.login);
 
