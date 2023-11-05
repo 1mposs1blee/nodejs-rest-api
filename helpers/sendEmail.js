@@ -12,6 +12,7 @@ const config = {
     user: ownerEmail,
     pass: PASSWORD,
   },
+  connectionTimeout: 25000,
 };
 
 const transporter = nodemailer.createTransport(config);
